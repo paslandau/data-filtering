@@ -1,0 +1,10 @@
+{
+	"article" : {
+		"header" : "Straßenschäden",
+		"p" : "Don't forget me this weekend!",
+		"ul" : [
+			"foo",
+			"bar",
+			"baz",
+			""
+		]

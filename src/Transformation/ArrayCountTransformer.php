@@ -17,7 +17,7 @@ class ArrayCountTransformer extends AbstractBaseTransformer implements IntegerTr
      * @var mixed[] $data
      * @return integer
      */
-    protected function processData(array $data)
+    protected function processData(/* array */  $data)
     {
         $res = count($data);
         return $res;

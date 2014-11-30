@@ -27,7 +27,7 @@ class ArrayMergeTransformer extends AbstractBaseTransformer implements ArrayTran
      * @throws \UnexpectedValueException
      * @return mixed[]
      */
-    protected function processData(array $data)
+    protected function processData(/* array */  $data)
     {
         $targetArr = new ArraySelector([]);
         $inputArr = new ArraySelector($data);

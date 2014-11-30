@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Hirnhamster
- * Date: 28.08.14
- * Time: 16:17
- */
-
 namespace paslandau\DataFiltering\Transformation;
 
 

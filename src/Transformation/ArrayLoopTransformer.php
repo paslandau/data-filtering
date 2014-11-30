@@ -1,8 +1,6 @@
 <?php
 namespace paslandau\DataFiltering\Transformation;
 
-use paslandau\ArrayUtility\ArrayPath\ArraySelector;
-
 /**
  * Class ArrayLoopTransformer
  * Expects an array as input and loops over each element, using $this->loopTransformer on each element.
@@ -32,10 +30,11 @@ class ArrayLoopTransformer extends AbstractBaseTransformer implements ArrayTrans
      * @throws \UnexpectedValueException
      * @return mixed[]
      */
-    protected function processData(array $data)
+    protected function processData(/* array */
+        $data)
     {
         $res = array();
-        foreach($data as $key => $val){
+        foreach ($data as $key => $val) {
             $res[$key] = $this->loopTransformer->transform($val);
         }
         return $res;

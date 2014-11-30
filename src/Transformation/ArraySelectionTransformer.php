@@ -35,7 +35,7 @@ class ArraySelectionTransformer extends AbstractBaseTransformer implements Array
      * @throws \UnexpectedValueException
      * @return mixed[]
      */
-    protected function processData(array $data)
+    protected function processData(/* array */  $data)
     {
         $res = array();
         foreach ($this->indices as $key) {

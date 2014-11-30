@@ -1,8 +1,6 @@
 <?php
 namespace paslandau\DataFiltering\Transformation;
 
-use paslandau\DataFiltering\Util\ReflectionUtil;
-
 class DomNodeToStringTransformer extends AbstractBaseTransformer implements StringTransformerInterface
 {
     const METHOD_NODE_VALUE = "NodeValue";
@@ -35,17 +33,16 @@ class DomNodeToStringTransformer extends AbstractBaseTransformer implements Stri
      * @var mixed $data
      * @return string
      */
-    protected function processData(\DOMNode $data)
+    protected function processData(/* \DOMNode */
+        $data)
     {
         $res = null;
         switch ($this->method) {
-            case self::METHOD_NODE_VALUE:
-            {
+            case self::METHOD_NODE_VALUE: {
                 $res = $data->nodeValue;
                 break;
             }
-            case self::METHOD_INNER_HTML:
-            {
+            case self::METHOD_INNER_HTML: {
                 $childrenHtml = array();
                 foreach ($data->childNodes as $child) {
                     $childrenHtml[] = $data->ownerDocument->saveXML($child);
@@ -53,8 +50,7 @@ class DomNodeToStringTransformer extends AbstractBaseTransformer implements Stri
                 $res = implode("\n", $childrenHtml);
                 break;
             }
-            case self::METHOD_OUTER_HTML:
-            {
+            case self::METHOD_OUTER_HTML: {
                 $res = $data->ownerDocument->saveXML($data);
                 break;
             }

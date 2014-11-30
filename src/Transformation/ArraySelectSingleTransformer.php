@@ -17,7 +17,7 @@ class ArraySelectSingleTransformer extends ArraySelectionTransformer implements 
 	 * @var mixed[] $data
 	 * @return mixed
 	 */
-	protected function processData(array $data){
+	protected function processData(/* array */ $data){
         $data = parent::processData($data);
         if(count($data) == 0){
             return null;

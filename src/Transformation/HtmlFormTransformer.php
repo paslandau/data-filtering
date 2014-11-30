@@ -21,7 +21,7 @@ class HtmlFormTransformer extends AbstractBaseTransformer implements HtmlFormTra
      * @throws \UnexpectedValueException
      * @return HtmlFormInterface
      */
-    protected function processData(\DOMNode $data)
+    protected function processData(/* \DOMNode */ $data)
     {
         $formNode = $data;
         $xpath = new \DOMXPath($formNode->ownerDocument);

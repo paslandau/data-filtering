@@ -18,7 +18,7 @@ class ArrayFlipTransformer extends AbstractBaseTransformer implements ArrayTrans
      * @throws \UnexpectedValueException
      * @return mixed[]
      */
-    protected function processData(array $data)
+    protected function processData(/* array */  $data)
     {
         $res = array_flip($data);
         return $res;

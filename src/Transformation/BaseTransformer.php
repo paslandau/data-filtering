@@ -1,9 +1,6 @@
 <?php
 namespace paslandau\DataFiltering\Transformation;
 
-use paslandau\DataFiltering\Util\StringUtil;
-use paslandau\DataFiltering\Events\DataEmitterTrait;
-
 class BaseTransformer extends AbstractBaseTransformer
 {
     /**

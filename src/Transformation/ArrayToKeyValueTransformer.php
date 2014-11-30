@@ -32,7 +32,7 @@ class ArrayToKeyValueTransformer extends AbstractBaseTransformer implements Arra
      * @throws \UnexpectedValueException
      * @return mixed[]
      */
-    protected function processData(array $data)
+    protected function processData(/* array */ $data)
     {
         $res = array();
         $key = array_key_exists($this->keyIdentifier, $data) ? $data[$this->keyIdentifier] : 0;

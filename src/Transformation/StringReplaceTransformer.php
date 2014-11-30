@@ -1,15 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Hirnhamster
- * Date: 01.09.14
- * Time: 13:49
- */
 
 namespace paslandau\DataFiltering\Transformation;
-
-
-use paslandau\WebUtility\WebUtil;
 
 class StringReplaceTransformer extends AbstractBaseTransformer implements StringTransformerInterface
 {
@@ -25,9 +16,18 @@ class StringReplaceTransformer extends AbstractBaseTransformer implements String
      * @param boolean $dataCanBeNull
      * @internal param string $baseUrl
      */
-    public function __construct(array $replacements, StringTransformerInterface $predecessor = null, $dataCanBeNull = null){
+    public function __construct(array $replacements, StringTransformerInterface $predecessor = null, $dataCanBeNull = null)
+    {
         $this->replacements = $replacements;
         parent::__construct($predecessor, $dataCanBeNull);
+    }
+
+    /**
+     * @return \string[]
+     */
+    public function getReplacements()
+    {
+        return $this->replacements;
     }
 
     /**
@@ -39,20 +39,13 @@ class StringReplaceTransformer extends AbstractBaseTransformer implements String
     }
 
     /**
-     * @return \string[]
-     */
-    public function getReplacements()
-    {
-        return $this->replacements;
-    }
-
-	/**
      * Uses str_replace with $this->replacements on $data
      * @var string $data
      * @return string
      */
-	protected function processData($data) {
-        $res = str_replace(array_keys($this->replacements), array_values($this->replacements),$data);
+    protected function processData($data)
+    {
+        $res = str_replace(array_keys($this->replacements), array_values($this->replacements), $data);
         return $res;
     }
 

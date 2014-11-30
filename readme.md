@@ -19,14 +19,10 @@ The recommended way to install data-filtering is through [Composer](http://getco
 Next, update your project's composer.json file to include DataFiltering:
 
     {
-        "repositories": [
-            {
-                "type": "git",
-                "url": "https://github.com/paslandau/data-filtering.git"
-            }
-        ],
+        "repositories": [ { "type": "composer", "url": "http://packages.myseosolution.de/"} ],
+        "minimum-stability": "dev",
         "require": {
-             "paslandau/data-filtering": "~0"
+             "paslandau/data-filtering": "dev-master"
         }
     }
 

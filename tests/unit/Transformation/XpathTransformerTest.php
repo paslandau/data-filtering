@@ -1,7 +1,10 @@
 <?php
 
 use paslandau\DataFiltering\Transformation\XpathTransformer;
+use paslandau\DomUtility\DomConverter;
+use paslandau\DomUtility\DomConverterInterface;
 use paslandau\IOUtility\IOUtil;
+use paslandau\WebUtility\EncodingConversion\EncodingConverter;
 
 class XpathTransformerTest extends PHPUnit_Framework_TestCase
 {
@@ -12,8 +15,9 @@ class XpathTransformerTest extends PHPUnit_Framework_TestCase
     {
         $path = __DIR__ . "/../resources/html5.html";
         $html = IOUtil::getFileContent($path);
-        $doc = new DOMDocument();
-        @$doc->loadHTML($html);
+        $enc = new EncodingConverter("utf-8",true,true);
+        $converter = new DomConverter(DomConverterInterface::HTML,$enc);
+        $doc = $converter->convert($html);
         $this->htmlDoc = $doc;
     }
 

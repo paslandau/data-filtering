@@ -12,6 +12,7 @@ class ArrayMergeTransformer extends AbstractBaseTransformer implements ArrayTran
     protected $mergingDescriptors;
 
     /**
+     *
      * @param ArrayMergingDescriptor[] $mergingDescriptors
      * @param ArrayTransformerInterface $predecessor . Default: null.
      * @param boolean $dataCanBeNull . Default: null (false).
@@ -23,6 +24,9 @@ class ArrayMergeTransformer extends AbstractBaseTransformer implements ArrayTran
     }
 
     /**
+     * The second ArrayPath in the ArrayMergingDescriptor is applyed on an empty array!
+     * Hence, it MUST BE EMPTY ==> ArrayPath("")
+     *
      * @var mixed[] $data
      * @throws \UnexpectedValueException
      * @return mixed[]

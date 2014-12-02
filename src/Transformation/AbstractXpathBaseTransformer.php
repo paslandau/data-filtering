@@ -27,7 +27,7 @@ abstract class AbstractXpathBaseTransformer extends AbstractBaseTransformer impl
      */
     protected function processData($data)
     {
-        $this->CheckForErrors($data);
+        $this->checkForErrors($data);
         //transform nodelist to array
         $res = iterator_to_array($data, true);
         return $res;
@@ -38,7 +38,7 @@ abstract class AbstractXpathBaseTransformer extends AbstractBaseTransformer impl
      * @throws \UnexpectedValueException
      * @return void
      */
-    protected function CheckForErrors($nodes)
+    protected function checkForErrors($nodes)
     {
         if ($nodes === false) {
             $error = error_get_last();

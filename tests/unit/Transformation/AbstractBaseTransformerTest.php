@@ -1,6 +1,7 @@
 <?php
 
 use paslandau\DataFiltering\Transformation\AbstractBaseTransformer;
+use paslandau\DataFiltering\Transformation\DataTransformerInterface;
 
 class BaseTransformerTest extends PHPUnit_Framework_TestCase
 {
@@ -8,7 +9,7 @@ class BaseTransformerTest extends PHPUnit_Framework_TestCase
     public function testNullTrue()
     {
         $expected = null;
-        $t = $this->getMockForAbstractClass('paslandau\DataFiltering\Transformation\AbstractBaseTransformer',[null, true]);
+        $t = $this->getMockForAbstractClass(AbstractBaseTransformer::class,[null, true]);
 
         $actual = $t->Transform($expected);
         $msg = "Expected: $actual == $expected";
@@ -19,18 +20,18 @@ class BaseTransformerTest extends PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(get_class(new UnexpectedValueException()));
         $expected = null;
-        $t = $this->getMockForAbstractClass('paslandau\DataFiltering\Transformation\AbstractBaseTransformer',[null, false]);
+        $t = $this->getMockForAbstractClass(AbstractBaseTransformer::class,[null, false]);
         $t->Transform($expected);
     }
 
     public function testRecursion()
     {
-        $mock = $this->getMock('paslandau\DataFiltering\Transformation\DataTransformerInterface');
+        $mock = $this->getMock(DataTransformerInterface::class);
         $callback = function ($s) {
             return strtoupper($s);
         };
         $mock->expects($this->any())->method("Transform")->will($this->returnCallback($callback));
-        $t = $this->getMockForAbstractClass('paslandau\DataFiltering\Transformation\AbstractBaseTransformer',[$mock]);
+        $t = $this->getMockForAbstractClass(AbstractBaseTransformer::class,[$mock]);
 
         $input = "hallo";
         $expected = "HALLO";
@@ -42,13 +43,13 @@ class BaseTransformerTest extends PHPUnit_Framework_TestCase
     public function testEnabledCache(){
         $calls = 5;
 
-        $mock = $this->getMock('paslandau\DataFiltering\Transformation\DataTransformerInterface');
+        $mock = $this->getMock(DataTransformerInterface::class);
         $callback = function ($s) {
             return strtoupper($s);
         };
         $mock->expects($this->once())->method("transform")->will($this->returnCallback($callback));
         /** @var AbstractBaseTransformer $t */
-        $t = $this->getMockForAbstractClass('paslandau\DataFiltering\Transformation\AbstractBaseTransformer',[$mock],'', TRUE, TRUE, TRUE, array('processData'));
+        $t = $this->getMockForAbstractClass(AbstractBaseTransformer::class,[$mock],'', TRUE, TRUE, TRUE, array('processData'));
         $t->expects($this->once())->method("processData")->will($this->returnArgument(0));
         $t->setIsCacheActive(true);
 
@@ -64,13 +65,13 @@ class BaseTransformerTest extends PHPUnit_Framework_TestCase
     public function testDisabledCache(){
         $calls = 5;
 
-        $mock = $this->getMock('paslandau\DataFiltering\Transformation\DataTransformerInterface');
+        $mock = $this->getMock(DataTransformerInterface::class);
         $callback = function ($s) {
             return strtoupper($s);
         };
         $mock->expects($this->exactly(5))->method("transform")->will($this->returnCallback($callback));
         /** @var AbstractBaseTransformer $t */
-        $t = $this->getMockForAbstractClass('paslandau\DataFiltering\Transformation\AbstractBaseTransformer',[$mock],'', TRUE, TRUE, TRUE, array('processData'));
+        $t = $this->getMockForAbstractClass(AbstractBaseTransformer::class,[$mock],'', TRUE, TRUE, TRUE, array('processData'));
         $t->expects($this->exactly(5))->method("processData")->will($this->returnArgument(0));
         $t->setIsCacheActive(false);
 

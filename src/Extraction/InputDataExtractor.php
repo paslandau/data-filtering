@@ -23,10 +23,12 @@ class InputDataExtractor extends AbstractBaseExtractor
     }
 
     /**
-     * @param mixed $data
+     * Ignores $data and will return $this->data
+     *
+     * @param mixed|null $data
      * @return mixed
      */
-    public function extract($data)
+    public function extract($data = null)
     {
         return $this->data;
     }

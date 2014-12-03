@@ -60,10 +60,10 @@ class MultiDataExtractor extends AbstractBaseExtractor implements DataExtractorI
 
     /**
      * Extracts the information of $responseData and uses $this->transformer on it (if set).
-     * @param mixed $data
+     * @param mixed|null $data
      * @return mixed[]
      */
-    protected function extract($data)
+    protected function extract($data = null)
     {
         $extracted = array();
         foreach ($this->extractors as $returnIdentifier => $extractor) {

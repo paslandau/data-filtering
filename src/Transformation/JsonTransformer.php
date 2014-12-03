@@ -1,6 +1,7 @@
 <?php
 namespace paslandau\DataFiltering\Transformation;
 
+use paslandau\DataFiltering\Exceptions\TransformationException;
 use paslandau\JsonUtility\JsonPathInterface;
 
 class JsonTransformer extends AbstractBaseTransformer implements ArrayTransformerInterface
@@ -39,7 +40,7 @@ class JsonTransformer extends AbstractBaseTransformer implements ArrayTransforme
         //Convert to assoc JSON
         $json = json_decode($data, true);
         if (!$json) {
-            throw new \UnexpectedValueException("Invalid JSON input");
+            throw new TransformationException("Invalid JSON input");
         }
         // TODO what happens if jsonpath is invalid?
         $res = $this->jsonPath->query($json, $this->expression);

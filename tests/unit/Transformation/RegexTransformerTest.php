@@ -1,5 +1,6 @@
 <?php
 
+use paslandau\DataFiltering\Exceptions\TransformationException;
 use paslandau\DataFiltering\Transformation\RegexTransformer;
 use paslandau\IOUtility\IOUtil;
 
@@ -60,7 +61,7 @@ class RegexTransformerTest extends PHPUnit_Framework_TestCase
 
     public function testUnexpectedGroup()
     {
-        $this->setExpectedException(get_class(new UnexpectedValueException));
+        $this->setExpectedException(TransformationException::class);
         $expression = "#(<li>)(?P<name>.*?)</li>#";
         $groupIndex = 'wrongIndex';
         $t = new RegexTransformer($expression, $groupIndex);
@@ -70,14 +71,14 @@ class RegexTransformerTest extends PHPUnit_Framework_TestCase
 
     public function testMalformedRegex()
     {
-        $this->setExpectedException(get_class(new UnexpectedValueException ()));
+        $this->setExpectedException(UnexpectedValueException::class);
         $t = new RegexTransformer ("malformed");
         $t->transform($this->html);
     }
 
     public function testNullRegex()
     {
-        $this->setExpectedException(get_class(new UnexpectedValueException ()));
+        $this->setExpectedException(UnexpectedValueException::class);
         $t = new RegexTransformer (null);
         $t->transform($this->html);
     }

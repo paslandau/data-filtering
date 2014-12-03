@@ -1,5 +1,6 @@
 <?php
 
+use paslandau\DataFiltering\Exceptions\TransformationException;
 use paslandau\DataFiltering\Transformation\RegexExistsTransformer;
 use paslandau\IOUtility\IOUtil;
 
@@ -35,7 +36,7 @@ class RegexExistsTransformerTest extends PHPUnit_Framework_TestCase
     {
         $tests = array(
             ["#<h2>(.*?)</h2>#u"],
-            ["#(<ul>)\s*<li style='foo'>(.*?)</li>#u"],
+            ["#(<ul>)\\s*<li style='foo'>(.*?)</li>#u"],
             ["#(<li>)Not Existing(?P<name>.*?)</li>#"]
         );
         foreach ($tests as $vals) {
@@ -49,7 +50,7 @@ class RegexExistsTransformerTest extends PHPUnit_Framework_TestCase
 
     public function testUnexpectedGroup()
     {
-        $this->setExpectedException(get_class(new UnexpectedValueException));
+        $this->setExpectedException(TransformationException::class);
         $expression = "#(<li>)(?P<name>.*?)</li>#";
         $groupIndex = 'wrongIndex';
         $t = new RegexExistsTransformer($expression, $groupIndex);
@@ -59,14 +60,14 @@ class RegexExistsTransformerTest extends PHPUnit_Framework_TestCase
 
     public function testMalformedRegex()
     {
-        $this->setExpectedException(get_class(new UnexpectedValueException ()));
+        $this->setExpectedException(UnexpectedValueException::class);
         $t = new RegexExistsTransformer ("malformed");
         $t->transform($this->html);
     }
 
     public function testNullRegex()
     {
-        $this->setExpectedException(get_class(new UnexpectedValueException ()));
+        $this->setExpectedException(UnexpectedValueException::class);
         $t = new RegexExistsTransformer (null);
         $t->transform($this->html);
     }

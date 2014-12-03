@@ -1,9 +1,10 @@
 ###0.1.1
 
  - updated repositories to local satis installation
- - added tests for each Transformer
+ - added unit tests for each Transformer, Extracor, Evaluator and Identifier
  - moved parsing logic from HtmlFormTransformer to HtmlForm
  - implemented fixed parseStr() method to allow "." and " " in form fiels keys
+ - added TransformationException for runtime errors for better debugability
 
 ##0.1.0
 

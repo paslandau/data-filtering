@@ -1,5 +1,6 @@
 <?php
 
+use paslandau\DataFiltering\Exceptions\TransformationException;
 use paslandau\DataFiltering\Transformation\ArraySelectSingleTransformer;
 
 class ArraySelectSingleTransformerTest extends PHPUnit_Framework_TestCase
@@ -47,7 +48,7 @@ class ArraySelectSingleTransformerTest extends PHPUnit_Framework_TestCase
 
     public function testIndexOutOfRange()
     {
-        $this->setExpectedException(get_class(new UnexpectedValueException ()));
+        $this->setExpectedException(TransformationException::class);
         $tests = array(
             [["foo", "bar", "baz", ""], 10],
         );

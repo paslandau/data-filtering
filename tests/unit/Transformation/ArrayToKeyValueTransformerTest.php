@@ -1,5 +1,6 @@
 <?php
 
+use paslandau\DataFiltering\Exceptions\TransformationException;
 use paslandau\DataFiltering\Transformation\ArrayToKeyValueTransformer;
 
 class ArrayToKeyValueTransformerTest extends PHPUnit_Framework_TestCase
@@ -9,15 +10,15 @@ class ArrayToKeyValueTransformerTest extends PHPUnit_Framework_TestCase
         $tests = [
             "empty-array" => [
                 "input" => [],
-                "expected" => RuntimeException::class,
+                "expected" => TransformationException::class,
             ],
             "array-no-key" => [
                 "input" => ["key-not-there" => "foo", "value" => "bar"],
-                "expected" => RuntimeException::class,
+                "expected" => TransformationException::class,
             ],
             "array-no-value" => [
                 "input" => ["key" => "foo", "value-not-there" => "bar"],
-                "expected" => RuntimeException::class,
+                "expected" => TransformationException::class,
             ],
             "array" => [
                 "input" => ["key" => "foo", "value" => "bar"],

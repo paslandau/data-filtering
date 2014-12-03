@@ -1,5 +1,6 @@
 <?php
 
+use paslandau\DataFiltering\Exceptions\TransformationException;
 use paslandau\DataFiltering\Transformation\AbstractBaseTransformer;
 use paslandau\DataFiltering\Transformation\DataTransformerInterface;
 
@@ -18,11 +19,50 @@ class AbstractBaseTransformerTest extends PHPUnit_Framework_TestCase
 
     public function testNullFalse()
     {
-        $this->setExpectedException(get_class(new UnexpectedValueException()));
+        $this->setExpectedException(UnexpectedValueException::class);
         $expected = null;
         $t = $this->getMockForAbstractClass(AbstractBaseTransformer::class, [null, false]);
         /** @var AbstractBaseTransformer $t */
         $t->Transform($expected);
+    }
+
+    public function test_NullTrueTransformationException(){
+        $mock = $this->getMock(DataTransformerInterface::class);
+        $callback = function ($s) {
+            throw new TransformationException("foo");
+        };
+        $mock->expects($this->any())->method("Transform")->will($this->returnCallback($callback));
+        $t = $this->getMockForAbstractClass(AbstractBaseTransformer::class, [$mock, true]);
+        /** @var AbstractBaseTransformer $t */
+        $expected = null;
+        $actual = $t->Transform($expected);
+        $msg = "Expected: $actual == $expected";
+        $this->assertEquals($expected, $actual, $msg);
+    }
+
+    public function test_NullFalseTransformationException(){
+        $this->setExpectedException(TransformationException::class);
+        $mock = $this->getMock(DataTransformerInterface::class);
+        $callback = function ($s) {
+            throw new TransformationException("foo");
+        };
+        $mock->expects($this->any())->method("Transform")->will($this->returnCallback($callback));
+        $t = $this->getMockForAbstractClass(AbstractBaseTransformer::class, [$mock, false]);
+        /** @var AbstractBaseTransformer $t */
+        $t->Transform("");
+    }
+
+
+    public function test_NullTransformationException(){
+        $this->setExpectedException(TransformationException::class);
+        $mock = $this->getMock(DataTransformerInterface::class);
+        $callback = function ($s) {
+            throw new TransformationException("foo");
+        };
+        $mock->expects($this->any())->method("Transform")->will($this->returnCallback($callback));
+        $t = $this->getMockForAbstractClass(AbstractBaseTransformer::class, [$mock]);
+        /** @var AbstractBaseTransformer $t */
+        $t->Transform("");
     }
 
     public function testRecursion()
@@ -91,4 +131,5 @@ class AbstractBaseTransformerTest extends PHPUnit_Framework_TestCase
         $msg = "Expected: $actual == $expected";
         $this->assertEquals($expected, $actual, $msg);
     }
+
 }

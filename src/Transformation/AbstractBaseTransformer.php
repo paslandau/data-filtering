@@ -1,6 +1,7 @@
 <?php
 namespace paslandau\DataFiltering\Transformation;
 
+use paslandau\DataFiltering\Exceptions\TransformationException;
 use paslandau\DataFiltering\Util\StringUtil;
 use paslandau\DataFiltering\Events\DataEmitterTrait;
 
@@ -77,20 +78,27 @@ class AbstractBaseTransformer implements DataTransformerInterface
             $data = $this->cache->getData($input);
             $res = $this->cache->getRes($input);
         } else{
-            $data = $input;
-            if ($this->predecessor !== null) {
-                $data = $this->predecessor->transform($input);
-            }
+            try {
+                $data = $input;
+                if ($this->predecessor !== null) {
+                    $data = $this->predecessor->transform($input);
+                }
 
-            if ($data === null && !$this->dataCanBeNull) {
+                if ($data === null && !$this->dataCanBeNull) {
                     $className = (new \ReflectionClass($this))->getShortName();
                     throw new \UnexpectedValueException("[$className] data must not be null");
-            }
-            if($data !== null){
-                $res = $this->processData($data); // overriden by subclasses
-                $this->fillCache($input, $data, $res);
-            } else{
-                return null;
+                }
+                if ($data !== null) {
+                    $res = $this->processData($data); // overriden by subclasses
+                    $this->fillCache($input, $data, $res);
+                } else {
+                    return null;
+                }
+            } catch (TransformationException $e) {
+                if ($this->dataCanBeNull) {
+                    return null;
+                }
+                throw $e;
             }
         }
 

@@ -15,7 +15,7 @@ trait DataEmitterTrait
      */
     public function attachOnProcessed(callable $onProcessed)
     {
-        $this->getDispatcher()->addListener("on_processed", $onProcessed);
+        $this->getDispatcher()->addListener(DataEmitterInterface::EVENT_ON_PROCESSED, $onProcessed);
     }
 
     /**
@@ -23,7 +23,7 @@ trait DataEmitterTrait
      */
     public function detachOnProcessed(callable $onProcessed)
     {
-        $this->getDispatcher()->removeListener("on_processed", $onProcessed);
+        $this->getDispatcher()->removeListener(DataEmitterInterface::EVENT_ON_PROCESSED, $onProcessed);
     }
 
     /**
@@ -32,6 +32,6 @@ trait DataEmitterTrait
      */
     protected function emitProcessedEvent($dataBefore, $dataAfter)
     {
-        $this->getDispatcher()->dispatch("on_processed", new DataProcessedEvent($this, $dataBefore, $dataAfter));
+        $this->getDispatcher()->dispatch(DataEmitterInterface::EVENT_ON_PROCESSED, new DataProcessedEvent($this, $dataBefore, $dataAfter));
     }
 } 

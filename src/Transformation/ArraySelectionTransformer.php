@@ -1,6 +1,8 @@
 <?php
 namespace paslandau\DataFiltering\Transformation;
 
+use paslandau\DataFiltering\Exceptions\TransformationException;
+
 class ArraySelectionTransformer extends AbstractBaseTransformer implements ArrayTransformerInterface
 {
 
@@ -43,7 +45,7 @@ class ArraySelectionTransformer extends AbstractBaseTransformer implements Array
                 $res[$key] = $data[$key];
             } elseif (!$this->ignoreNotExistingIndices) {
                 $className = (new \ReflectionClass($this))->getShortName();
-                throw new \UnexpectedValueException("[$className] Index '$key' is not in the given array and ignoreNotExistingIndices is false");
+                throw new TransformationException("[$className] Index '$key' is not in the given array and ignoreNotExistingIndices is false");
             }
         }
         return $res;

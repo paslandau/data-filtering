@@ -1,6 +1,8 @@
 <?php
 namespace paslandau\DataFiltering\Transformation;
 
+use paslandau\DataFiltering\Exceptions\TransformationException;
+
 class PropertyTransformer extends AbstractBaseTransformer implements DataTransformerInterface, StringTransformerInterface
 {
 
@@ -28,6 +30,9 @@ class PropertyTransformer extends AbstractBaseTransformer implements DataTransfo
     protected function processData($data)
     {
         $class = new \ReflectionClass($data);
+        if(!$class->hasProperty($this->propertyName)){
+            throw new TransformationException("Property {$this->propertyName} does not exis in class '".get_class($data)."'");
+        }
         $prop = $class->getProperty($this->propertyName);
         $prop->setAccessible(true);
         $res = $prop->getValue($data);

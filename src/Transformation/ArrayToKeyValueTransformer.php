@@ -1,6 +1,7 @@
 <?php
 namespace paslandau\DataFiltering\Transformation;
 use paslandau\ArrayUtility\ArrayUtil;
+use paslandau\DataFiltering\Exceptions\TransformationException;
 
 /**
  * Class ArrayToKeyValueTransformer
@@ -52,11 +53,11 @@ class ArrayToKeyValueTransformer extends AbstractBaseTransformer implements Arra
         // todo: throw exception when key/valueIdentifier do no exist?
         $res = array();
         if(!array_key_exists($this->keyIdentifier, $data)){
-            throw new \RuntimeException("Key identifier '{$this->keyIdentifier}' not found in ".ArrayUtil::toString($data));
+            throw new TransformationException("Key identifier '{$this->keyIdentifier}' not found in ".ArrayUtil::toString($data));
         }
         $key = $data[$this->keyIdentifier];
         if(!array_key_exists($this->valueIdentifier, $data)){
-            throw new \RuntimeException("Value identifier '{$this->valueIdentifier}' not found in ".ArrayUtil::toString($data));
+            throw new TransformationException("Value identifier '{$this->valueIdentifier}' not found in ".ArrayUtil::toString($data));
         }
         $value = $data[$this->valueIdentifier];
         $res[$key] = $value;

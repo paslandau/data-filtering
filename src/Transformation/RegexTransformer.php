@@ -1,6 +1,8 @@
 <?php
 namespace paslandau\DataFiltering\Transformation;
 
+use paslandau\DataFiltering\Exceptions\TransformationException;
+
 class RegexTransformer extends AbstractBaseTransformer implements ArrayTransformerInterface
 {
 
@@ -52,7 +54,7 @@ class RegexTransformer extends AbstractBaseTransformer implements ArrayTransform
             if (array_key_exists($this->groupIndex, $matches)) {
                 $res = $matches[$this->groupIndex];
             } else {
-                throw new \UnexpectedValueException("Group index '{$this->groupIndex}' does not exist in the matched result using pattern '{$this->pattern}''");
+                throw new TransformationException("Group index '{$this->groupIndex}' does not exist in the matched result using pattern '{$this->pattern}''");
             }
         }
         return $res;

@@ -16,11 +16,6 @@ abstract class AbstractBaseExtractor implements DataExtractorInterface
     protected $transformer;
 
     /**
-     * @var boolean;
-     */
-    protected $isGettingData;
-
-    /**
      * @param DataTransformerInterface $transformer [optional]. Default: null.
      */
     function __construct(DataTransformerInterface $transformer = null)
@@ -35,14 +30,12 @@ abstract class AbstractBaseExtractor implements DataExtractorInterface
      */
     public function getData($data = null)
     {
-        $this->isGettingData = true;
         $extracted = $this->extract($data);
         $transformed = $extracted;
         if ($this->transformer !== null) {
             $transformed = $this->transformer->transform($transformed);
         }
         $this->emitProcessedEvent($extracted, $transformed);
-        $this->isGettingData = false;
         return $transformed;
     }
 
@@ -69,14 +62,6 @@ abstract class AbstractBaseExtractor implements DataExtractorInterface
     public function setTransformer(DataTransformerInterface $transformer = null)
     {
         $this->transformer = $transformer;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getIsGettingData()
-    {
-        return $this->isGettingData;
     }
 
     public function __toString(){

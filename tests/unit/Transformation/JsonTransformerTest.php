@@ -1,5 +1,6 @@
 <?php
 
+use paslandau\DataFiltering\Exceptions\TransformationException;
 use paslandau\DataFiltering\Transformation\JsonTransformer;
 use paslandau\IOUtility\IOUtil;
 use paslandau\JsonUtility\JsonPathWrapper;
@@ -64,7 +65,7 @@ class JsonTransformerTest extends PHPUnit_Framework_TestCase
 
     public function testMalformedJson()
     {
-        $this->setExpectedException(get_class(new UnexpectedValueException ()));
+        $this->setExpectedException(TransformationException::class);
         $tests = array(
             $this->malformed
         );

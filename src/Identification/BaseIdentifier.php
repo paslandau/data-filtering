@@ -22,14 +22,14 @@ class BaseIdentifier implements IdentificationInterface {
     protected $identifier;
 
     /**
-     * @var IdentificationInterface
+     * @var IdentificationInterface|null
      */
     protected $parent;
 
     /**
      * @param ExpressionInterface $evaluator
      * @param string $identifier
-     * @param IdentificationInterface $parent
+     * @param IdentificationInterface|null $parent
      */
     function __construct(ExpressionInterface $evaluator, $identifier, IdentificationInterface $parent = null)
     {
@@ -94,6 +94,22 @@ class BaseIdentifier implements IdentificationInterface {
     public function getEvaluator()
     {
         return $this->evaluator;
+    }
+
+    /**
+     * @return IdentificationInterface|null
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @param null|IdentificationInterface $parent
+     */
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
     }
 
     public function __toString()

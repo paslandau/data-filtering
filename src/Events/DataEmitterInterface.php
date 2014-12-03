@@ -4,6 +4,8 @@ namespace paslandau\DataFiltering\Events;
 
 
 interface DataEmitterInterface {
+    const EVENT_ON_PROCESSED = "on_processed";
+
     /**
      * @param callable $onProcessed
      */

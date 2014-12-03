@@ -16,7 +16,7 @@ The recommended way to install data-filtering is through [Composer](http://getco
 
     curl -sS https://getcomposer.org/installer | php
 
-Next, update your project's composer.json file to include DataFiltering:
+Next, update your project's composer.json file to include data-filtering:
 
     {
         "repositories": [ { "type": "composer", "url": "http://packages.myseosolution.de/"} ],

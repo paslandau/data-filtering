@@ -34,7 +34,7 @@ class ArrayMergingDescriptor implements ArrayMergingDescriptorInterface{
     }
 
     /**
-     * Modifies $targetArr with $targetPath according to the extracted value of $inputArr by using $inputPath
+     * Modifies $targetArr with $targetPath according to the extracted value of $inputArr by using $this->inputPath
      * @param ArraySelectorInterface $inputArr
      * @param ArraySelectorInterface $targetArr
      * @return void

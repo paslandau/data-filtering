@@ -1,6 +1,21 @@
 <?php
 namespace paslandau\DataFiltering\Transformation;
+use paslandau\ArrayUtility\ArrayUtil;
 
+/**
+ * Class ArrayToKeyValueTransformer
+ *
+ * Transforms data from an array into an associative array.
+ * Example
+ * [
+ *  "key" => "foo"
+ *   "value" => "bar"
+ * ]
+ *
+ * ==> $keyIdentifier = "key", $valueIdentifier = "value"
+ *
+ * ["foo" => "bar"]
+ */
 class ArrayToKeyValueTransformer extends AbstractBaseTransformer implements ArrayTransformerInterface
 {
 
@@ -34,9 +49,16 @@ class ArrayToKeyValueTransformer extends AbstractBaseTransformer implements Arra
      */
     protected function processData(/* array */ $data)
     {
+        // todo: throw exception when key/valueIdentifier do no exist?
         $res = array();
-        $key = array_key_exists($this->keyIdentifier, $data) ? $data[$this->keyIdentifier] : 0;
-        $value = array_key_exists($this->valueIdentifier, $data) ? $data[$this->valueIdentifier] : null;
+        if(!array_key_exists($this->keyIdentifier, $data)){
+            throw new \RuntimeException("Key identifier '{$this->keyIdentifier}' not found in ".ArrayUtil::toString($data));
+        }
+        $key = $data[$this->keyIdentifier];
+        if(!array_key_exists($this->valueIdentifier, $data)){
+            throw new \RuntimeException("Value identifier '{$this->valueIdentifier}' not found in ".ArrayUtil::toString($data));
+        }
+        $value = $data[$this->valueIdentifier];
         $res[$key] = $value;
         return $res;
     }

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Hirnhamster
- * Date: 29.08.14
- * Time: 09:58
- */
 
 namespace paslandau\DataFiltering\Transformation;
 
@@ -36,7 +30,7 @@ class DomDocumentTransformer extends AbstractBaseTransformer implements DomDocum
      */
     protected function processData($data)
     {
-        $res = $this->domConverter->Convert($data);
+        $res = $this->domConverter->convert($data);
         return $res;
     }
 }

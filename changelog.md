@@ -1,3 +1,7 @@
+##0.8
+
+ - dependency hell
+
 ###0.1.1
 
  - updated repositories to local satis installation

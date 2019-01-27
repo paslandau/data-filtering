@@ -1,16 +1,25 @@
-#data-filtering
+# DEPRECATED ⛔ 
+
+This repository has been deprecated as of 2019-01-27. That code was written a long time ago and has been unmaintained for several years.
+Thus, repository will now be [archived](https://github.blog/2017-11-08-archiving-repositories/).
+If you are interested in taking over ownership, feel free to [contact me](https://www.pascallandau.com/about/).
+
+---
+
+
+# data-filtering
 [![Build Status](https://travis-ci.org/paslandau/data-filtering.svg?branch=master)](https://travis-ci.org/paslandau/data-filtering)
 
 Framework to filter (extract,transform,evaluate) data based on rules
 
-##Description
+## Description
 [todo]
 
-##Requirements
+## Requirements
 
 - PHP >= 5.5
 
-##Installation
+## Installation
 
 The recommended way to install data-filtering is through [Composer](http://getcomposer.org/).
 
